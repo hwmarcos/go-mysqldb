@@ -11,7 +11,9 @@ func main() {
 
 	dbData := config.GetDataSource()
 
-	db, err := sql.Open("mysql", ""+dbData[1]+":"+dbData[2]+"@tcp("+dbData[0]+":3306)/"+dbData[3]+"")
+	dataSourceName := "" + dbData.User + ":" + dbData.Pass + "@tcp(" + dbData.Host + ":3306)/" + dbData.DbName + ""
+
+	db, err := sql.Open("mysql", dataSourceName)
 
 	if err != nil {
 		panic(err.Error())

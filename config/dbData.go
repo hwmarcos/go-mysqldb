@@ -5,7 +5,14 @@ import (
 	"os"
 )
 
-func GetDataSource() []string {
+type dbData struct {
+	Host   string
+	User   string
+	Pass   string
+	DbName string
+}
+
+func GetDataSource() dbData {
 
 	err := godotenv.Load(".env")
 
@@ -13,10 +20,10 @@ func GetDataSource() []string {
 		panic(err.Error())
 	}
 
-	host := os.Getenv("MYSQL_HOST")
-	user := os.Getenv("MYSQL_USER")
-	pass := os.Getenv("MYSQL_PASS")
-	dbname := os.Getenv("MYSQL_DBNAME")
-
-	return []string{host, user, pass, dbname}
+	return dbData{
+		Host:   os.Getenv("MYSQL_HOST"),
+		User:   os.Getenv("MYSQL_USER"),
+		Pass:   os.Getenv("MYSQL_PASS"),
+		DbName: os.Getenv("MYSQL_DBNAME"),
+	}
 }
